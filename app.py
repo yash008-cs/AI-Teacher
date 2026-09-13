@@ -10,11 +10,13 @@ from dotenv import load_dotenv
 # Load local environment variables from .env
 load_dotenv(override=True)
 
+# Load Streamlit Cloud secrets into environment variables
+if "GEMINI_API_KEY" in st.secrets:
+    os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
+
 from utils.session_manager import init_session_state
 from services import ZepService, MemoryService, get_ai_service, RAGService
 from services.voice import ElevenLabsSTTService, ElevenLabsTTSService
-from components.session_screen import render_session_screen
-from components.chat_interface import render_chat_interface
 
 # Configure Streamlit page parameters
 st.set_page_config(
