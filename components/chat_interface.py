@@ -315,7 +315,7 @@ def render_chat_interface(
                             st.caption(f"_{s['snippet']}..._")
 
     # 4. Handle Incoming User Input (integrated microphone in search bar + Voice mode toggle + stop button)
-    accept_voice = bool(stt_service and stt_service.is_configured())
+    accept_voice = True
 
     with st.bottom:
         col_btn, _ = st.columns([3.2, 6.8])
