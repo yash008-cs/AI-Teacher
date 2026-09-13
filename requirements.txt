@@ -1,0 +1,29 @@
+# ==============================================================================
+# AI Teacher / Personal AI Tutor - Application Dependencies
+# ==============================================================================
+
+# Core Web Framework
+streamlit>=1.40.0
+
+# AI Models & Providers
+google-genai>=1.0.0          # Official Google Gemini SDK (Gemini 3.8 Flash, 3.1 Flash Lite)
+openai>=1.50.0                # OpenAI SDK (GPT-4o provider support)
+
+# Long-Term Memory & Context Graph
+zep-cloud>=2.0.0              # Zep Cloud Graph Memory for personalized learner context
+
+# Voice Pipeline (STT & TTS)
+elevenlabs>=1.50.0            # ElevenLabs Scribe STT & Streaming TTS
+edge-tts>=7.0.0               # Microsoft Edge Neural Speech (high-fidelity fallback TTS)
+websockets>=13.0.0            # Realtime streaming audio socket support
+sounddevice>=0.5.0            # Audio capture and playback testing utilities
+
+# RAG & Document Processing
+pypdf>=5.0.0                  # PDF ingestion & textbook extraction
+numpy>=1.26.0                 # Vector math & similarity computations
+
+# Environment, Utilities & Networking
+python-dotenv>=1.0.0          # .env file configuration loader
+pydantic>=2.0.0               # Schema validation & type definitions
+requests>=2.30.0              # Synchronous HTTP networking
+httpx>=0.27.0                 # Asynchronous HTTP networking

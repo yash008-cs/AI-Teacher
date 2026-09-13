@@ -1,0 +1,710 @@
+/* ===================================================
+   AI TEACHER - ADAPTIVE DARK/LIGHT AI DESIGN SYSTEM
+   =================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ---------------------------------------------------
+   1. ROOT VARIABLES: DARK MODE (DEFAULT)
+   --------------------------------------------------- */
+:root {
+  --bg-primary: #0b0813;
+  --bg-secondary: #130e24;
+  --bg-card: rgba(23, 17, 43, 0.75);
+  --bg-glass: rgba(30, 21, 58, 0.65);
+  --border-subtle: rgba(168, 85, 247, 0.22);
+  --border-focus: rgba(192, 132, 252, 0.6);
+  --accent-purple: #9333ea;
+  --accent-glow: #a855f7;
+  --accent-violet: #7c3aed;
+  --accent-cyan: #38bdf8;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --app-gradient: radial-gradient(circle at 50% 10%, #1e113b 0%, #0d0918 60%, #07050d 100%);
+  --sidebar-bg: rgba(15, 10, 28, 0.94);
+  --msg-user-bg: rgba(147, 51, 234, 0.12);
+  --msg-assistant-bg: rgba(22, 16, 43, 0.65);
+  --chat-input-bg: rgba(23, 17, 43, 0.85);
+  --pre-bg: #090611;
+  --header-title-color: #ffffff;
+  --title-gradient: linear-gradient(135deg, #ffffff 30%, #c084fc 100%);
+  --expander-bg: rgba(23, 17, 43, 0.5);
+  --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(147, 51, 234, 0.12);
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+}
+
+/* ---------------------------------------------------
+   2. LIGHT MODE OVERRIDES
+   Triggers when user selects Light theme in Streamlit,
+   or system prefers light mode, or light class is set.
+   --------------------------------------------------- */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-primary: #faf8ff;
+    --bg-secondary: #f3effc;
+    --bg-card: rgba(255, 255, 255, 0.92);
+    --bg-glass: rgba(255, 255, 255, 0.85);
+    --border-subtle: rgba(147, 51, 234, 0.18);
+    --border-focus: rgba(147, 51, 234, 0.55);
+    --accent-purple: #7c3aed;
+    --accent-glow: #9333ea;
+    --accent-violet: #6d28d9;
+    --accent-cyan: #0284c7;
+    --text-primary: #1e1b4b;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --app-gradient: radial-gradient(circle at 50% 10%, #f3effe 0%, #faf8ff 60%, #f5f3ff 100%);
+    --sidebar-bg: rgba(248, 245, 255, 0.96);
+    --msg-user-bg: rgba(124, 58, 237, 0.08);
+    --msg-assistant-bg: #ffffff;
+    --chat-input-bg: #ffffff;
+    --pre-bg: #f8fafc;
+    --header-title-color: #1e1b4b;
+    --title-gradient: linear-gradient(135deg, #1e1b4b 30%, #7c3aed 100%);
+    --expander-bg: rgba(255, 255, 255, 0.85);
+    --card-shadow: 0 15px 35px rgba(124, 58, 237, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04);
+  }
+}
+
+/* Specific Streamlit selector for when Light Theme is active */
+:root[data-theme="light"],
+:root[data-base-theme="light"],
+:root:has([style*="color-scheme: light"]),
+:root:has([data-theme="light"]),
+html[data-theme="light"],
+html:has([style*="color-scheme: light"]),
+body:has([style*="color-scheme: light"]),
+.stApp[data-theme="light"],
+.stApp:has([style*="color-scheme: light"]),
+[style*="color-scheme: light"],
+[data-theme="light"],
+[data-base-theme="light"],
+.light-mode,
+body.light-theme {
+  --bg-primary: #faf8ff !important;
+  --bg-secondary: #f3effc !important;
+  --bg-card: rgba(255, 255, 255, 0.95) !important;
+  --bg-glass: rgba(255, 255, 255, 0.9) !important;
+  --border-subtle: rgba(147, 51, 234, 0.18) !important;
+  --border-focus: rgba(147, 51, 234, 0.55) !important;
+  --accent-purple: #7c3aed !important;
+  --accent-glow: #9333ea !important;
+  --accent-violet: #6d28d9 !important;
+  --accent-cyan: #0284c7 !important;
+  --text-primary: #1e1b4b !important;
+  --text-secondary: #334155 !important;
+  --text-muted: #64748b !important;
+  --app-gradient: radial-gradient(circle at 50% 10%, #f3effe 0%, #faf8ff 60%, #f5f3ff 100%) !important;
+  --sidebar-bg: rgba(248, 245, 255, 0.96) !important;
+  --msg-user-bg: rgba(124, 58, 237, 0.08) !important;
+  --msg-assistant-bg: #ffffff !important;
+  --chat-input-bg: #ffffff !important;
+  --pre-bg: #f8fafc !important;
+  --header-title-color: #1e1b4b !important;
+  --title-gradient: linear-gradient(135deg, #1e1b4b 30%, #7c3aed 100%) !important;
+  --expander-bg: rgba(255, 255, 255, 0.85) !important;
+  --card-shadow: 0 15px 35px rgba(124, 58, 237, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* ---------------------------------------------------
+   3. HIDE STREAMLIT DEPLOY BUTTON COMPLETELY
+   --------------------------------------------------- */
+.stDeployButton,
+div[data-testid="stDeployButton"],
+[data-testid="stAppDeployButton"],
+header div[data-testid="stToolbarActions"],
+header [data-testid="stToolbarActions"] button,
+header [data-testid="stToolbarActions"] div,
+[data-testid="stToolbar"] .stDeployButton,
+[data-testid="stToolbar"] div.stDeployButton {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* ---------------------------------------------------
+   4. GLOBAL APP CONTAINER & TYPOGRAPHY
+   --------------------------------------------------- */
+.stApp {
+  background: var(--app-gradient) !important;
+  background-attachment: fixed !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-main);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-main) !important;
+  letter-spacing: -0.02em;
+  color: var(--text-primary) !important;
+}
+
+p, span, label {
+  color: var(--text-primary);
+}
+
+/* ---------------------------------------------------
+   5. SIDEBAR STYLING
+   --------------------------------------------------- */
+section[data-testid="stSidebar"] {
+  background-color: var(--sidebar-bg) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-right: 1px solid var(--border-subtle) !important;
+}
+
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] span,
+section[data-testid="stSidebar"] label {
+  color: var(--text-primary) !important;
+}
+
+/* Secondary & Sidebar buttons */
+section[data-testid="stSidebar"] button,
+section[data-testid="stSidebar"] div.stButton > button,
+section[data-testid="stSidebar"] button[kind="secondary"],
+section[data-testid="stSidebar"] [data-testid="baseButton-secondary"],
+section[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] {
+  background: var(--bg-card) !important;
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-subtle) !important;
+  box-shadow: var(--card-shadow) !important;
+  border-radius: 12px !important;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  padding: 0.65rem 1rem !important;
+  transition: all 0.2s ease !important;
+}
+
+section[data-testid="stSidebar"] button:hover,
+section[data-testid="stSidebar"] div.stButton > button:hover {
+  background: var(--msg-user-bg) !important;
+  border-color: var(--accent-purple) !important;
+  color: var(--accent-purple) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ---------------------------------------------------
+   6. PRIMARY BUTTONS
+   --------------------------------------------------- */
+div.stButton > button {
+  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #c026d3 100%) !important;
+  color: #ffffff !important;
+  font-family: var(--font-main) !important;
+  font-weight: 600 !important;
+  font-size: 0.98rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 14px !important;
+  padding: 0.75rem 1.8rem !important;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  width: 100%;
+}
+
+div.stButton > button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 30px rgba(168, 85, 247, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+div.stButton > button:active {
+  transform: translateY(1px) !important;
+}
+
+/* ---------------------------------------------------
+   7. CHAT HEADER BAR
+   --------------------------------------------------- */
+.chat-header {
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.chat-header-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--header-title-color) !important;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chat-header-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted) !important;
+}
+
+/* ---------------------------------------------------
+   8. CHAT MESSAGE BUBBLES
+   --------------------------------------------------- */
+div[data-testid="stChatMessage"] {
+  background: var(--msg-assistant-bg) !important;
+  border-radius: 18px !important;
+  padding: 1.2rem 1.4rem !important;
+  margin-bottom: 0.85rem !important;
+  border: 1px solid var(--border-subtle) !important;
+  box-shadow: var(--card-shadow) !important;
+  transition: all 0.2s ease !important;
+}
+
+div[data-testid="stChatMessage"]:has(div[data-testid="stChatMessageAvatarUser"]),
+div[data-testid="stChatMessage"]:has([aria-label*="user"]),
+div[data-testid="stChatMessage"]:has([aria-label*="User"]) {
+  background: var(--msg-user-bg) !important;
+  border: 1px solid var(--border-subtle) !important;
+}
+
+div[data-testid="stChatMessage"]:has(div[data-testid="stChatMessageAvatarAssistant"]),
+div[data-testid="stChatMessage"]:has([aria-label*="assistant"]),
+div[data-testid="stChatMessage"]:has([aria-label*="Assistant"]) {
+  background: var(--msg-assistant-bg) !important;
+  border: 1px solid var(--border-subtle) !important;
+}
+
+div[data-testid="stChatMessage"] p,
+div[data-testid="stChatMessage"] li,
+div[data-testid="stChatMessage"] span {
+  color: var(--text-primary) !important;
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------
+   9. CODE BLOCKS & SYNTAX
+   --------------------------------------------------- */
+code {
+  font-family: var(--font-code) !important;
+  background: var(--bg-glass) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 6px !important;
+  padding: 0.15rem 0.4rem !important;
+  color: var(--accent-purple) !important;
+}
+
+pre {
+  background: var(--pre-bg) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  padding: 1rem !important;
+}
+
+pre code {
+  border: none !important;
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* ---------------------------------------------------
+   10. CHAT INPUT BAR & FIXED BOTTOM CONTAINER
+   --------------------------------------------------- */
+div[data-testid="stBottom"],
+div[data-testid="stBottomBlockContainer"],
+div[data-testid="stBottom"] > div,
+.stBottom,
+div[data-testid="stAppViewContainer"] > div:has(div[data-testid="stChatInput"]),
+footer {
+  background: var(--bg-primary) !important;
+  background-color: var(--bg-primary) !important;
+  border-top: 1px solid var(--border-subtle) !important;
+}
+
+div[data-testid="stChatInput"] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+div[data-testid="stChatInput"] > div {
+  background: var(--chat-input-bg) !important;
+  background-color: var(--chat-input-bg) !important;
+  border-radius: 16px !important;
+  border: 1px solid var(--border-subtle) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+div[data-testid="stChatInput"]:focus-within > div {
+  border-color: var(--border-focus) !important;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.25) !important;
+}
+
+div[data-testid="stChatInput"] textarea {
+  color: var(--text-primary) !important;
+  font-family: var(--font-main) !important;
+  background: transparent !important;
+}
+
+div[data-testid="stChatInput"] textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+div[data-testid="stChatInput"] button {
+  color: var(--accent-purple) !important;
+  background: transparent !important;
+  border-radius: 10px !important;
+  transition: all 0.2s ease !important;
+}
+
+div[data-testid="stChatInput"] button:hover {
+  background: rgba(147, 51, 234, 0.15) !important;
+  color: #c084fc !important;
+  transform: scale(1.08) !important;
+}
+
+div[data-testid="stChatInput"] button[data-testid="stChatInputMicButton"] {
+  color: var(--accent-purple) !important;
+}
+
+div[data-testid="stChatInput"] button[data-testid="stChatInputMicButton"]:hover {
+  background: rgba(147, 51, 234, 0.22) !important;
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.4) !important;
+}
+
+div[data-testid="stChatInput"] button[data-testid="stChatInputCancelButton"] {
+  color: #ef4444 !important;
+}
+
+div[data-testid="stChatInput"] button[data-testid="stChatInputStopButton"] {
+  background: rgba(239, 68, 68, 0.18) !important;
+  color: #ef4444 !important;
+  border: 1px solid rgba(239, 68, 68, 0.45) !important;
+  border-radius: 10px !important;
+  transition: all 0.2s ease !important;
+}
+
+div[data-testid="stChatInput"] button[data-testid="stChatInputStopButton"]:hover {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.6) !important;
+  transform: scale(1.1) !important;
+}
+
+/* ---------------------------------------------------
+   10B. VOICE MODE TOGGLE BUTTON IN BOTTOM BAR
+   --------------------------------------------------- */
+div[data-testid="stBottom"] div.stButton > button {
+  width: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.45rem !important;
+  padding: 0.32rem 0.95rem !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  border-radius: 20px !important;
+  margin-bottom: 0.25rem !important;
+  line-height: 1.35 !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Voice mode active: glowing purple pill */
+div[data-testid="stBottom"] div.stButton > button[kind="primary"],
+div[data-testid="stBottom"] div.stButton > button[data-testid="baseButton-primary"],
+div[data-testid="stBottom"] div.stButton > button[data-testid="stBaseButton-primary"] {
+  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #c026d3 100%) !important;
+  border: 1px solid rgba(216, 180, 254, 0.5) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+div[data-testid="stBottom"] div.stButton > button[kind="primary"]:hover,
+div[data-testid="stBottom"] div.stButton > button[data-testid="baseButton-primary"]:hover,
+div[data-testid="stBottom"] div.stButton > button[data-testid="stBaseButton-primary"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 24px rgba(192, 132, 252, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(233, 213, 255, 0.9) !important;
+}
+
+/* Voice mode inactive: subtle muted pill */
+div[data-testid="stBottom"] div.stButton > button[kind="secondary"],
+div[data-testid="stBottom"] div.stButton > button[data-testid="baseButton-secondary"],
+div[data-testid="stBottom"] div.stButton > button[data-testid="stBaseButton-secondary"] {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: var(--text-muted) !important;
+  box-shadow: none !important;
+}
+
+div[data-testid="stBottom"] div.stButton > button[kind="secondary"]:hover,
+div[data-testid="stBottom"] div.stButton > button[data-testid="baseButton-secondary"]:hover,
+div[data-testid="stBottom"] div.stButton > button[data-testid="stBaseButton-secondary"]:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  color: var(--text-primary) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ---------------------------------------------------
+   11. EXPANDERS & COLLAPSIBLES
+   --------------------------------------------------- */
+div[data-testid="stExpander"] {
+  background: var(--expander-bg) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
+
+div[data-testid="stExpander"] summary {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}
+
+div[data-testid="stExpander"] summary:hover {
+  color: var(--accent-purple) !important;
+}
+
+div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] {
+  color: var(--text-primary) !important;
+}
+
+/* ---------------------------------------------------
+   12. STATUS PILLS & BADGES
+   --------------------------------------------------- */
+.status-pill {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.status-active {
+  background: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.status-warning {
+  background: rgba(234, 179, 8, 0.15);
+  color: #ca8a04;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+/* ---------------------------------------------------
+   13. ONBOARDING SESSION CARD
+   --------------------------------------------------- */
+.session-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem 1rem;
+}
+
+.session-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.session-card:hover {
+  border-color: var(--border-focus);
+}
+
+.session-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: var(--title-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.session-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.session-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-purple);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------
+   14. WIDGET LABELS & TEXT INPUTS
+   --------------------------------------------------- */
+div[data-testid="stTextInput"] label,
+div[data-testid="stWidgetLabel"] label,
+div[data-testid="stWidgetLabel"] p {
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 0.4rem !important;
+}
+
+/* Hide helper text / form submission instructions inside the input box */
+div[data-testid="InputInstructions"],
+div[data-testid="InputInstructions"] > span,
+.stTextInput div[data-testid="InputInstructions"],
+div[data-testid="stTextInput"] small,
+.stTextInput small {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Clean text input box styling */
+div[data-testid="stTextInput"] input {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 1rem !important;
+}
+
+div[data-testid="stTextInput"] input:focus {
+  border-color: var(--border-focus) !important;
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.25) !important;
+}
+
+/* Card / Form container styling */
+div[data-testid="stForm"] {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 20px !important;
+  padding: 2rem !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+/* ---------------------------------------------------
+   15. AVATAR ANIMATIONS
+   --------------------------------------------------- */
+@keyframes pulseAvatarIdle {
+  0% { transform: scale(1); box-shadow: 0 0 12px rgba(192, 132, 252, 0.3); }
+  50% { transform: scale(1.04); box-shadow: 0 0 24px rgba(192, 132, 252, 0.7); }
+  100% { transform: scale(1); box-shadow: 0 0 12px rgba(192, 132, 252, 0.3); }
+}
+
+@keyframes pulseAvatarThinking {
+  0% { transform: scale(1); box-shadow: 0 0 12px rgba(56, 189, 248, 0.3); }
+  50% { transform: scale(1.06); box-shadow: 0 0 25px rgba(56, 189, 248, 0.8); }
+  100% { transform: scale(1); box-shadow: 0 0 12px rgba(56, 189, 248, 0.3); }
+}
+
+.avatar-idle {
+  animation: pulseAvatarIdle 3.5s infinite ease-in-out;
+}
+
+.avatar-thinking {
+  animation: pulseAvatarThinking 1.2s infinite ease-in-out;
+}
+
+/* ---------------------------------------------------
+   16. CHATGPT-STYLE RECENTS IN SIDEBAR
+   --------------------------------------------------- */
+.recents-header {
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  color: var(--text-muted) !important;
+  margin-top: 1.2rem !important;
+  margin-bottom: 0.6rem !important;
+  padding-left: 0.3rem !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Base style for all sidebar buttons */
+section[data-testid="stSidebar"] div.stButton > button {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  display: flex !important;
+  align-items: center !important;
+  border-radius: 10px !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+  padding: 0.55rem 0.85rem !important;
+  transition: all 0.15s ease !important;
+}
+
+section[data-testid="stSidebar"] div.stButton > button div[data-testid="stMarkdownContainer"] {
+  width: 100% !important;
+  text-align: left !important;
+}
+
+section[data-testid="stSidebar"] div.stButton > button p {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-align: left !important;
+  font-size: 0.88rem !important;
+  margin: 0 !important;
+}
+
+/* Secondary (inactive recent chat) in sidebar */
+section[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] {
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  color: var(--text-secondary) !important;
+  box-shadow: none !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"]:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  transform: none !important;
+}
+
+/* Primary (active recent chat) in sidebar - ChatGPT subtle pill background */
+section[data-testid="stSidebar"] [data-testid="stBaseButton-primary"] {
+  background: rgba(255, 255, 255, 0.14) !important;
+  background-color: rgba(255, 255, 255, 0.14) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+  font-weight: 600 !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stBaseButton-primary"]:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+  transform: none !important;
+}
+
+/* Hide get_services runner badge */
+div[data-testid="stStatusWidget"]:has(*:contains("get_services")),
+div[data-testid="stNotification"]:has(*:contains("get_services")) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+
