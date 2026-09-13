@@ -17,6 +17,7 @@ if "GEMINI_API_KEY" in st.secrets:
 from utils.session_manager import init_session_state
 from services import ZepService, MemoryService, get_ai_service, RAGService
 from services.voice import ElevenLabsSTTService, ElevenLabsTTSService
+from components import render_session_screen, render_chat_interface
 
 # Configure Streamlit page parameters
 st.set_page_config(
